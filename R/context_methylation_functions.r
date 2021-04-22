@@ -258,7 +258,7 @@ CollapseStrands = function(MethGR, context){
 
   # find the + stranded cytosines and make them -
   MethGR_plus = MethGR[strand(MethGR) == "+"]
-  start(MethGR_plus) = start(MethGR_plus) + ifelse(context == "CG", +1, -1)
+  start(MethGR_plus) = start(MethGR_plus) + ifelse(context == "HCG", +1, -1)
   end(MethGR_plus) = start(MethGR_plus)
   strand(MethGR_plus) = "-"
 
@@ -464,7 +464,7 @@ CallContextMethylation = function(sampleSheet, sample, genome, RegionOfInterest,
 
   message("Subsetting Cytosines by permissive genomic context (GC, CG)") # Here we use a permissive context: needed for the strand collapsing
   ContextFilteredMethGR = list(GC = FilterContextCytosines(MethGR, genome, "GC"),
-                               CG = FilterContextCytosines(MethGR, genome, "CG"))
+                               CG = FilterContextCytosines(MethGR, genome, "HCG"))
   if (returnSM){
     ContextFilteredMethSM = lapply(seq_along(MethSM),
                                    function(n){lapply(seq_along(ContextFilteredMethGR),
